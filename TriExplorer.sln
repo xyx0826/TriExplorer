@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2047
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriExplorer", "TriExplorer\TriExplorer.csproj", "{92EF4DC9-9702-45AA-9DCE-A8EECD2271EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92EF4DC9-9702-45AA-9DCE-A8EECD2271EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92EF4DC9-9702-45AA-9DCE-A8EECD2271EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92EF4DC9-9702-45AA-9DCE-A8EECD2271EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92EF4DC9-9702-45AA-9DCE-A8EECD2271EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27791C11-5857-4217-A7C7-3A83423AB12B}
+	EndGlobalSection
+EndGlobal
