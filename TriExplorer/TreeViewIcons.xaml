@@ -1,0 +1,226 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TriExplorer">
+    <!-- Folder icon - for directories -->
+    <Style x:Key="FolderIcon" TargetType="ContentControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Rectangle Width="16" Height="16">
+                        <Rectangle.Fill>
+                            <DrawingBrush>
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <DrawingGroup.Children>
+                                            <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M0,0L16,0 16,16 0,16z" />
+                                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M1.5,1L9.61,1 10.61,3 13.496,3C14.323,3,14.996,3.673,14.996,4.5L14.996,12.5C14.996,13.327,14.323,14,13.496,14L1.5,14C0.673,14,0,13.327,0,12.5L0,2.5C0,1.673,0.673,1,1.5,1" />
+                                            <GeometryDrawing Brush="#FFDCB67A" Geometry="F1M2,3L8.374,3 8.874,4 2,4z M13.496,4L10,4 9.992,4 8.992,2 1.5,2C1.225,2,1,2.224,1,2.5L1,12.5C1,12.776,1.225,13,1.5,13L13.496,13C13.773,13,13.996,12.776,13.996,12.5L13.996,4.5C13.996,4.224,13.773,4,13.496,4" />
+                                            <GeometryDrawing Brush="#FFEFEFF0" Geometry="F1M2,3L8.374,3 8.874,4 2,4z" />
+                                        </DrawingGroup.Children>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- Model icon - for .gr2 models -->
+    <Style x:Key="ModelIcon" TargetType="ContentControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Rectangle Width="16" Height="16">
+                        <Rectangle.Fill>
+                            <DrawingBrush>
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <DrawingGroup.Children>
+                                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M4.5855,-0.000199999999999534L0.000499999999999723,4.5858 0.000499999999999723,15.9998 11.4135,15.9998 16.0005,11.4148 16.0005,-0.000199999999999534z" />
+                                            <GeometryDrawing Brush="#FF414141" Geometry="F1M10.334,4.9585L14.293,1.0005 5,1.0005 1.042,4.9585z" />
+                                            <GeometryDrawing Brush="#FF414141" Geometry="F1M11,5.707L11,15 15,11 15,1.707z" />
+                                            <GeometryDrawing Brush="#FF414141" Geometry="F1M1,15L10,15 10,6 1,6z" />
+                                        </DrawingGroup.Children>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- Image icon - for .png, .dds images -->
+    <Style x:Key="ImageIcon" TargetType="ContentControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Rectangle Width="16" Height="16">
+                        <Rectangle.Fill>
+                            <DrawingBrush>
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <DrawingGroup.Children>
+                                            <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M0,15L16,15 16,0 0,0z" />
+                                            <GeometryDrawing Brush="#FF424242" Geometry="F1M1,1L1,10 2,9.073 2,2 14,2 14,11.098 15,12 15,1z" />
+                                            <GeometryDrawing Brush="#FF424242" Geometry="F1M1,1L1,10 2,9.073 2,2 14,2 14,11.098 15,12 15,1z" />
+                                            <GeometryDrawing Brush="#FFEFEFF0" Geometry="F1M10,4.5C10,5.328 10.672,6 11.5,6 12.328,6 13,5.328 13,4.5 13,3.672 12.328,3 11.5,3 10.672,3 10,3.672 10,4.5 M5,6.293L2,9.293 2,2 14,2 14,11.293 12,9.293 10,11.293z" />
+                                            <GeometryDrawing Brush="#FF1AA1E2" Geometry="F1M1,10L5,6.293 10,11.293 12,9.293 15,12 15,14 1,14z" />
+                                            <GeometryDrawing Brush="#FFC17C1A" Geometry="F1M11.5,3C10.672,3 10,3.672 10,4.5 10,5.328 10.672,6 11.5,6 12.328,6 13,5.328 13,4.5 13,3.672 12.328,3 11.5,3" />
+                                        </DrawingGroup.Children>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- Scene icon - for .black scenes -->
+    <Style x:Key="SceneIcon" TargetType="ContentControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Rectangle Width="16" Height="16">
+                        <Rectangle.Fill>
+                            <DrawingBrush>
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <DrawingGroup.Children>
+                                            <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0.000999999999999446,16 0.000999999999999446,0 16,0z" />
+                                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M12.7549,11.666L12.7549,12.727 8.2909,16 3.1669,12.773 3.1669,10.306 2.8379,10.28C2.7509,10.273,2.6759,10.262,2.5999,10.25L2.2739,10.204C2.1079,10.184 2.0199,10.172 1.9459,10.157 1.0319,9.985 0.385899999999999,9.704 -0.000100000000001543,9.324L-0.000100000000001543,7.366 4.2079,0.0990000000000002 6.0389,3.26 6.2569,3.618C7.2339,2.269 8.8119,1.38 10.6009,1.38 13.5629,1.38 15.9729,3.79 15.9729,6.752 15.9729,8.947 14.6459,10.833 12.7549,11.666" />
+                                            <GeometryDrawing Geometry="F1M0.578,8.363C0.578,8.701,1.202,8.999,2.149,9.178L2.149,9.178C2.229,9.194,2.335,9.202,2.424,9.216L2.424,9.216C2.501,9.227,2.572,9.237,2.643,9.246L2.643,9.246C2.74,9.258,2.82,9.275,2.923,9.284L2.923,9.284 2.923,9.276C3.027,9.285,3.109,9.291,3.167,9.294L3.167,9.294 3.167,7.203 6.303,5.618 5.174,3.761 4.208,2.094z">
+                                                <GeometryDrawing.Brush>
+                                                    <RadialGradientBrush Center="2.857338,4.6048994" RadiusX="4.0304278999999994" RadiusY="4.0304278999999994" GradientOrigin="2.857338,4.6048994" MappingMode="Absolute">
+                                                        <RadialGradientBrush.GradientStops>
+                                                            <GradientStop Color="#FFB5B5B5" Offset="0" />
+                                                            <GradientStop Color="#FF424242" Offset="0.71515202522277832" />
+                                                            <GradientStop Color="#FF424242" Offset="1" />
+                                                        </RadialGradientBrush.GradientStops>
+                                                    </RadialGradientBrush>
+                                                </GeometryDrawing.Brush>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing Geometry="F1M6.413,5.562L8.051,4.734 12.755,7.215 12.755,10.535C14.073,9.782,14.972,8.379,14.972,6.752L14.972,6.752C14.972,4.337,13.016,2.38,10.6,2.38L10.6,2.38C8.601,2.38,6.934,3.729,6.413,5.562">
+                                                <GeometryDrawing.Brush>
+                                                    <RadialGradientBrush Center="9.8210878,5.2241344" RadiusX="5.1251154" RadiusY="5.1251154" GradientOrigin="9.8210878,5.2241344" MappingMode="Absolute">
+                                                        <RadialGradientBrush.GradientStops>
+                                                            <GradientStop Color="#FFB5B5B5" Offset="0" />
+                                                            <GradientStop Color="#FF424242" Offset="0.71515202522277832" />
+                                                            <GradientStop Color="#FF424242" Offset="1" />
+                                                        </RadialGradientBrush.GradientStops>
+                                                    </RadialGradientBrush>
+                                                </GeometryDrawing.Brush>
+                                            </GeometryDrawing>
+                                            <GeometryDrawing Brush="#FF424242" Geometry="F1M11.1904,11.9453L8.6144,13.8023 8.6144,10.3393 11.1904,8.7713z M7.9704,13.9083L7.9704,13.9243 7.9614,13.9163 7.9534,13.9243 7.9534,13.9083 4.7864,11.8433 4.7864,8.5253 7.9954,10.3163 7.9954,13.8903z M7.9954,6.5353L11.0654,8.0473 8.2014,9.7663 5.1064,8.0023z M11.7544,12.2203L11.7544,7.8183 8.0414,5.8593 4.1674,7.8183 4.1674,12.2203 8.2484,14.7913z" />
+                                            <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M11.1904,11.9453L8.6144,13.8023 8.6144,10.3393 11.1904,8.7713z M7.9704,13.9083L7.9704,13.9243 7.9614,13.9163 7.9534,13.9243 7.9534,13.9083 4.7864,11.8433 4.7864,8.5253 7.9954,10.3163 7.9954,13.8903z M7.9954,6.5353L11.0654,8.0473 8.2014,9.7663 5.1064,8.0023z" />
+                                        </DrawingGroup.Children>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- Effect icon - for .sm* files -->
+    <Style x:Key="EffectIcon" TargetType="ContentControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Rectangle Width="16" Height="16">
+                        <Rectangle.Fill>
+                            <DrawingBrush>
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <DrawingGroup.Children>
+                                            <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M7.0002,-0.000199999999999534L6.0002,0.9998 6.0002,-0.000199999999999534 2.9992,-0.000199999999999534 2.9992,0.9998 2.0002,-0.000199999999999534 0.000200000000000422,1.9998 1.0002,3.0008 0.000200000000000422,3.0008 0.000200000000000422,5.9998 1.0002,5.9998 0.000200000000000422,6.9998 2.0002,8.9998 2.9992,7.9998 2.9992,8.9998 6.0002,8.9998 6.0002,8.4138 6.5862,8.9998 7.4992,9.9138 7.5862,9.9998 8.4992,10.9138 12.9992,15.4138 15.4142,13.0008 10.9142,8.5008 10.0002,7.5858 9.9142,7.5008 9.0002,6.5858 8.4142,5.9998 9.0002,5.9998 9.0002,3.0008 8.0002,3.0008 9.0002,1.9998z" />
+                                            <GeometryDrawing Brush="#FF414141" Geometry="F1M5,6.4297L5,7.9997 4,7.9997 4,6.4297C4.161,6.4707 4.326,6.4997 4.5,6.4997 4.674,6.4997 4.839,6.4707 5,6.4297 M3.489,6.2167L2.379,7.3277 1.671,6.6207 2.782,5.5097C2.955,5.8027,3.197,6.0447,3.489,6.2167 M8,3.9997L8,4.9997 6.429,4.9997C6.471,4.8397 6.5,4.6737 6.5,4.4997 6.5,4.3257 6.471,4.1597 6.429,3.9997z M6.218,5.5097L7.329,6.6207 6.621,7.3277 5.511,6.2167C5.803,6.0447,6.045,5.8027,6.218,5.5097 M4,2.5707L4,0.999700000000001 5,0.999700000000001 5,2.5707C4.839,2.5297 4.674,2.4997 4.5,2.4997 4.326,2.4997 4.161,2.5297 4,2.5707 M2.571,4.9997L1,4.9997 1,3.9997 2.571,3.9997C2.529,4.1597 2.5,4.3257 2.5,4.4997 2.5,4.6737 2.529,4.8397 2.571,4.9997 M5.511,2.7837L6.621,1.6717 7.329,2.3787 6.218,3.4907C6.045,3.1977,5.803,2.9547,5.511,2.7837 M3.489,2.7837L2.379,1.6717 1.671,2.3787 2.782,3.4907C2.955,3.1977,3.197,2.9547,3.489,2.7837 M9,7.9997L8,8.9997 8.5,9.4997 9.5,8.4997z M8,6.9997L7,7.9997 7.5,8.4997 8.5,7.4997z M14,12.9997L13,13.9997 9,9.9997 10,8.9997z" />
+                                        </DrawingGroup.Children>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- Audio icon - for .wem banks -->
+    <Style x:Key="AudioIcon" TargetType="ContentControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Rectangle Width="16" Height="16">
+                        <Rectangle.Fill>
+                            <DrawingBrush>
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <DrawingGroup.Children>
+                                            <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M7.5861,-0.000199999999999534L3.5851,4.0008 9.99999999997669E-05,4.0008 9.99999999997669E-05,10.9998 3.5851,10.9998 7.5861,14.9998 10.0001,14.9998 10.0001,9.9998 10.9291,9.9998 13.3011,12.3708 15.3701,10.3008 14.0701,8.9998 16.0001,8.9998 16.0001,5.9998 14.0701,5.9998 15.3701,4.6988 13.3011,2.6298 10.9291,4.9998 10.0001,4.9998 10.0001,-0.000199999999999534z" />
+                                            <GeometryDrawing Brush="#FF414141" Geometry="F1M13,7C13.032,7.162 13.05,7.329 13.05,7.5 13.05,7.671 13.032,7.838 13,8L15,8 15,7z M11.956,9.611L13.301,10.957 13.956,10.301 12.611,8.957C12.439,9.217,12.217,9.439,11.956,9.611 M12.611,6.043L13.956,4.699 13.301,4.043 11.956,5.388C12.217,5.561,12.439,5.783,12.611,6.043 M9,6L11,6 11,9 9,9 9,14 8,14 4,10 1,10 1,5 4,5 8,1 9,1z" />
+                                        </DrawingGroup.Children>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- YAML icon - for .yaml files -->
+    <Style x:Key="YamlIcon" TargetType="ContentControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Rectangle Width="16" Height="16">
+                        <Rectangle.Fill>
+                            <DrawingBrush>
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <DrawingGroup.Children>
+                                            <GeometryDrawing Brush="#00FFFFFF" Geometry="F1M16,16L0,16 0,0 16,0z" />
+                                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M2.9648,16C2.0118,16,0.9998,15.299,0.9998,14L0.9998,2C0.9998,0.701000000000001,2.0118,0,2.9638,0L11.0228,0 14.9998,3.553 14.9998,14C14.9718,14.825,14.4068,16,12.9648,16z" />
+                                            <GeometryDrawing Brush="#FF424242" Geometry="F1M5.7334,10.6582L4.0264,8.9512 5.7334,7.2442 6.4404,7.9512 5.4404,8.9512 6.4404,9.9512z M9.0134,13.0282L7.0624,13.0282 7.0624,11.0182 9.0134,11.0182z M8.9254,9.9482L7.0214,9.9482 7.0214,4.9962 8.9254,4.9962z M10.3554,7.2932L12.0624,9.0002 10.3554,10.7072 9.6484,10.0002 10.6484,9.0002 9.6484,8.0002z M13.0004,14.0002L3.0004,14.0002 3.0004,2.0002 10.0004,2.0002 10.0004,5.0002 13.0004,5.0002z M10.6404,1.0002L2.9634,1.0002C2.9634,1.0002,2.0004,1.0002,2.0004,2.0002L2.0004,14.0002C2.0004,15.0002,2.9644,15.0002,2.9644,15.0002L12.9644,15.0002C13.9644,15.0002,14.0004,14.0002,14.0004,14.0002L14.0004,4.0002z" />
+                                            <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M10.3555,10.707L9.6485,10 10.6485,9 9.6485,8 10.3555,7.293 12.0625,9z M9.0135,13.028L7.0625,13.028 7.0625,11.018 9.0135,11.018z M7.0215,4.997L8.9255,4.997 8.9255,9.949 7.0215,9.949z M6.4405,9.951L5.7335,10.658 4.0265,8.951 5.7335,7.244 6.4405,7.951 5.4405,8.951z M10.0185,5L10.0185,2 3.0005,2 3.0005,14 13.0005,14 13.0005,5z" />
+                                        </DrawingGroup.Children>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- Misc icon - for other files -->
+    <Style x:Key="MiscIcon" TargetType="ContentControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Rectangle Width="16" Height="16">
+                        <Rectangle.Fill>
+                            <DrawingBrush>
+                                <DrawingBrush.Drawing>
+                                    <DrawingGroup>
+                                        <DrawingGroup.Children>
+                                            <GeometryDrawing Brush="#FFF6F6F6" Geometry="F1M8.5,12C6.505,12,5,10.926,5,9.5L5,6.5C5,5.074 6.505,4 8.5,4 10.495,4 12,5.074 12,6.5L12,9.5C12,10.926,10.495,12,8.5,12" />
+                                            <GeometryDrawing Brush="#FF414141" Geometry="F1M8.5,7.4248C7.416,7.4248 6.575,6.9278 6.575,6.4998 6.575,6.0718 7.416,5.5748 8.5,5.5748 9.584,5.5748 10.425,6.0718 10.425,6.4998 10.425,6.9278 9.584,7.4248 8.5,7.4248 M8.5,4.9998C7.119,4.9998,6,5.6718,6,6.4998L6,9.4998C6,10.3278 7.119,10.9998 8.5,10.9998 9.881,10.9998 11,10.3278 11,9.4998L11,6.4998C11,5.6718,9.881,4.9998,8.5,4.9998" />
+                                            <GeometryDrawing Brush="#FFF0EFF1" Geometry="F1M8.5,5.5752C7.416,5.5752 6.575,6.0722 6.575,6.5002 6.575,6.9282 7.416,7.4252 8.5,7.4252 9.584,7.4252 10.425,6.9282 10.425,6.5002 10.425,6.0722 9.584,5.5752 8.5,5.5752" />
+                                        </DrawingGroup.Children>
+                                    </DrawingGroup>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

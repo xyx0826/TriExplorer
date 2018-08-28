@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriExplorer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="450" Width="800"
+        Loaded="Window_Loaded"
+        Closed="Window_Closed">
+    <StackPanel Orientation="Horizontal">
+        <TreeView ItemsSource="{Binding TreeViewContent}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Files}">
+                    <StackPanel Orientation="Horizontal">
+                        <ContentControl Style="{Binding TypeIcon}"/>
+                        <TextBlock Text="{Binding DisplayName}"/>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+    </StackPanel>
 </Window>
