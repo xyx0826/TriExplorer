@@ -15,17 +15,25 @@ namespace TriExplorer
 
         /// <summary>
         /// Validates existence of ResFiles folder from registry or given SharedCache path.
+        /// If a path is validated, it is saved to settings.
         /// </summary>
-        /// <param name="path">Optional SharedCache path to be validated.</param>
+        /// <param name="path">Optional SharedCache path to be validated. 
+        /// If none given, registry value is used.</param>
         /// <returns>True if path is valid, or false if not.</returns>
         public static bool ValidateSCPath(string path = "")
         {
-            if (String.IsNullOrEmpty(path) && 
-                String.IsNullOrEmpty(Settings.Default.SCPath)) // path unspecified, reading registry
-                path = (string) Registry.GetValue(_scRegPath, _scRegKey, "");
+            // Not specifying path, can be first run or using settings
+            if (String.IsNullOrEmpty(path))
+            {
+                path = (string)Registry.GetValue(_scRegPath, _scRegKey, "");
+                // Setting is fresh, use setting value
+                if (!String.IsNullOrEmpty(Settings.Default.SCPath))
+                    path = Settings.Default.SCPath;
+            }
 
             // Save the path if valid
             var result = Directory.Exists(Path.Combine(path, "ResFiles"));
+            Settings.Default.IsSCPathValid = result;
             if (result) Settings.Default.SCPath = path;
             return result;
         }

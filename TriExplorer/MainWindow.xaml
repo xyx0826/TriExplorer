@@ -5,19 +5,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriExplorer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="{Binding WindowTitle}" Height="450" Width="800"
         Loaded="Window_Loaded"
         Closed="Window_Closed">
-    <StackPanel Orientation="Horizontal">
-        <TreeView ItemsSource="{Binding TreeViewContent}">
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Files}">
-                    <StackPanel Orientation="Horizontal">
-                        <ContentControl Style="{Binding TypeIcon}"/>
-                        <TextBlock Text="{Binding DisplayName}"/>
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
-    </StackPanel>
+    <DockPanel VerticalAlignment="Stretch" LastChildFill="True">
+        <!-- StatusBar -->
+        <StatusBar x:Name="StatusBar" DockPanel.Dock="Bottom">
+            <Grid Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type StatusBar}}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="{Binding LoadingText}"/>
+                <Button Grid.Column="1" 
+                        Content="Select Another Path..."
+                        IsEnabled="{Binding IsPathBtnEnabled}"
+                        Click="ReloadSharedCache"/>
+                <ProgressBar Grid.Column="2" Margin="6,0,6,0"
+                             Maximum="{Binding LoadingProgMax}" 
+                             Value="{Binding LoadingProgValue}"/>
+            </Grid>
+        </StatusBar>
+        <!-- Main DockPanel -->
+        <DockPanel HorizontalAlignment="Stretch">
+            <TreeView x:Name="TreeView" Width="300" 
+                      ItemsSource="{Binding SharedCacheTree}" 
+                      SelectedItemChanged="TreeView_SelectedItemChanged">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Files}">
+                        <StackPanel Orientation="Horizontal">
+                            <ContentControl Style="{Binding TypeIcon}" Margin="0,0,2,0"/>
+                            <TextBlock Text="{Binding DisplayName}"/>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+            <StackPanel x:Name="InfoStackPanel" Orientation="Vertical">
+                <Expander Header="Basic properties" IsExpanded="True" HorizontalAlignment="Stretch">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Selected type: "/>
+                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding CurrentNodeType}"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="File size: "/>
+                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentFileSize}"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="File resource name: "/>
+                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding CurrentFileName}"/>
+                    </Grid>
+                </Expander>
+                <DockPanel HorizontalAlignment="Stretch">
+                </DockPanel>
+            </StackPanel>
+            <!-- TODO -->
+        </DockPanel>
+    </DockPanel>
 </Window>
