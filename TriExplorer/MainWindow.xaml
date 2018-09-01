@@ -42,7 +42,7 @@
                 </TreeView.ItemTemplate>
             </TreeView>
             <StackPanel x:Name="InfoStackPanel" Orientation="Vertical">
-                <Expander Header="Basic properties" IsExpanded="True" HorizontalAlignment="Stretch">
+                <Expander Header="{Binding CurrentNodeType}" IsExpanded="True" HorizontalAlignment="Stretch">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
@@ -52,13 +52,16 @@
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="1*" />
                             <RowDefinition Height="1*" />
+                            <RowDefinition Height="1*" />
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Content="Selected type: "/>
-                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding CurrentNodeType}"/>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Name: "/>
+                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding CurrentNodeName}"/>
                         <Label Grid.Row="1" Grid.Column="0" Content="File size: "/>
                         <Label Grid.Row="1" Grid.Column="1" Content="{Binding CurrentFileSize}"/>
-                        <Label Grid.Row="2" Grid.Column="0" Content="File resource name: "/>
-                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding CurrentFileName}"/>
+                        <Label Grid.Row="2" Grid.Column="0" Content="File compressed size: "/>
+                        <Label Grid.Row="2" Grid.Column="1" Content="{Binding CurrentFileSize}"/>
+                        <Label Grid.Row="3" Grid.Column="0" Content="File name on disk: "/>
+                        <Label Grid.Row="3" Grid.Column="1" Content="{Binding CurrentFileName}"/>
                     </Grid>
                 </Expander>
                 <DockPanel HorizontalAlignment="Stretch">

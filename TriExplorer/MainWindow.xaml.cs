@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using TriExplorer.Properties;
+using TriExplorer.Types;
 
 namespace TriExplorer
 {
@@ -125,23 +125,21 @@ namespace TriExplorer
         /// <param name="e"></param>
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var selectedNode = e.NewValue as SharedCacheParser.SharedCacheNode;
+            var selectedNode = e.NewValue as SharedCacheNode;
             Debug.WriteLine($"Selecting {selectedNode.DisplayName}");
 
-            if (selectedNode.GetType() == typeof(SharedCacheParser.SharedCacheFile))
-                UIStrings.GetInstance().CurrentNodeType = "Shared resource file";
-            else UIStrings.GetInstance().CurrentNodeType = "Shared resource path";
+            if (selectedNode.GetType() == typeof(SharedCacheDirectory))
+                UIStrings.GetInstance().CurrentNodeType = "Shared Resource Path";
 
             // Only display file info for files, not directory nodes (duh)
-            if (selectedNode.GetType() == typeof(SharedCacheParser.SharedCacheFile))
+            if (selectedNode.GetType() == typeof(SharedCacheFile))
             {
-                UIStrings.GetInstance().CurrentFileProps = "something something eve file";  // WIP
-                UIStrings.GetInstance().CurrentFileSize = (selectedNode as SharedCacheParser.SharedCacheFile).Info.RawSize.ToString();
-                UIStrings.GetInstance().CurrentFileName = (selectedNode as SharedCacheParser.SharedCacheFile).Info.ResName;
+                UIStrings.GetInstance().CurrentNodeType = (selectedNode as SharedCacheFile).TypeDesc;
+                UIStrings.GetInstance().CurrentFileSize = (selectedNode as SharedCacheFile).Info.RawSize.ToString();
+                UIStrings.GetInstance().CurrentFileName = (selectedNode as SharedCacheFile).Info.ResName;
             }
             else
             {
-                UIStrings.GetInstance().CurrentFileProps = "";
                 UIStrings.GetInstance().CurrentFileSize = "";
                 UIStrings.GetInstance().CurrentFileName = "";
             }

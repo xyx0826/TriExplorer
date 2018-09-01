@@ -54,6 +54,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="NodeCategories.cs" />
+    <Compile Include="Types\SharedCacheEntry.cs" />
+    <Compile Include="Types\SharedCacheNode.cs" />
     <Compile Include="SharedCacheParser.cs" />
     <Compile Include="SharedCacheReader.cs" />
     <Compile Include="UIStrings.cs" />

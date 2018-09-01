@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TriExplorer
 {
@@ -26,12 +22,24 @@ namespace TriExplorer
         }
         #endregion
 
-        #region Status bar
+        #region Binding implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+        #endregion
+
+        #region Loading bar StatusBar
         string _loadingText;
         int _loadingProgMax;
         int _loadingProgValue;
         bool _isPathBtnEnabled;
 
+        /// <summary>
+        /// Text on the left of status bar.
+        /// </summary>
         public string LoadingText
         {
             get { return _loadingText; }
@@ -42,6 +50,9 @@ namespace TriExplorer
             }
         }
 
+        /// <summary>
+        /// Max value of progress bar on status bar.
+        /// </summary>
         public int LoadingProgMax
         {
             get { return _loadingProgMax; }
@@ -52,6 +63,9 @@ namespace TriExplorer
             }
         }
 
+        /// <summary>
+        /// Current value of progress bar on status bar.
+        /// </summary>
         public int LoadingProgValue
         {
             get { return _loadingProgValue; }
@@ -62,6 +76,9 @@ namespace TriExplorer
             }
         }
 
+        /// <summary>
+        /// Whether the path selection button on status bar is enabled.
+        /// </summary>
         public bool IsPathBtnEnabled
         {
             get { return _isPathBtnEnabled; }
@@ -73,12 +90,15 @@ namespace TriExplorer
         }
         #endregion
 
-        #region Details
+        #region Details StackPanel
         string _currentNodeType;
-        string _currentFileProps;
         int _currentFileSize;
         string _currentFileName;
 
+        /// <summary>
+        /// Type of current TreeView node: 
+        /// can be a directory or a specific file type.
+        /// </summary>
         public string CurrentNodeType
         {
             get { return _currentNodeType; }
@@ -88,20 +108,31 @@ namespace TriExplorer
                 OnPropertyChanged();
             }
         }
-        public string CurrentFileProps
+
+        /// <summary>
+        /// Name of current TreeView node:
+        /// only applicablke to file nodes.
+        /// </summary>
+        public string CurrentFileName
         {
-            get { return _currentFileProps; }
+            get { return _currentFileName; }
             set
             {
-                _currentFileProps = value;
+                _currentFileName = value;
                 OnPropertyChanged();
             }
         }
+
+        /// <summary>
+        /// Size of current TreeView node: 
+        /// only applicable to file nodes.
+        /// </summary>
         public string CurrentFileSize
         {
             get
             {
-                if (_currentFileSize < 1024)    // less than 1kb
+                if (_currentFileSize == 0) return "N/A";    // not a file
+                else if (_currentFileSize < 1024)    // less than 1kb
                 {
                     return $"{_currentFileSize} B";
                 }
@@ -121,22 +152,6 @@ namespace TriExplorer
                 OnPropertyChanged();
             }
         }
-        public string CurrentFileName
-        {
-            get { return _currentFileName; }
-            set
-            {
-                _currentFileName = value;
-                OnPropertyChanged();
-            }
-        }
         #endregion
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
     }
 }

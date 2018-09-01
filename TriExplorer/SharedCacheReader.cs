@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
+using TriExplorer.Types;
 using TriExplorer.Properties;
 
 namespace TriExplorer
@@ -68,64 +68,6 @@ namespace TriExplorer
                      if (!String.IsNullOrEmpty(entry)) scEntries.Add(new SharedCacheEntry(entry));
                  return scEntries;
              });
-        }
-    }
-
-    /// <summary>
-    /// Holds the raw data of a shared cache entry.
-    /// </summary>
-    public class SharedCacheEntry
-    {
-        public SharedCacheEntry() { }
-        /// <summary>
-        /// Constructs a SharedCacheEntry from a line of shared cache index.
-        /// </summary>
-        /// <param name="scEntry">Shared cache index to be deserialized.</param>
-        public SharedCacheEntry(string scEntry)
-        {
-            var data = scEntry.Split(',');
-            ResPath = data[0].Split('/');
-            FilePath = data[1];
-            Md5 = data[2];
-            RawSize = Int32.Parse(data[3]);
-            CompressedSize = (data.Length > 4 ? Int32.Parse(data[4]) : 0);
-
-            CurrentDepth = 0;
-            ResPathDepth = ResPath.Length;
-        }
-        
-        // Actual path in file system
-        public string FilePath { get; set; }
-        public string Md5 { get; set; }
-        public int RawSize { get; set; }
-        public int CompressedSize { get; set; }
-
-        public string ResName
-        {
-            get { return ResPath.Last(); }
-        }
-
-        private string[] ResPath;
-        
-        private int CurrentDepth;
-
-        private int ResPathDepth;
-
-        /// <summary>
-        /// Reads the next path segment of this shared cache entry. Returns null if the end is reached.
-        /// </summary>
-        public string NextPath
-        {
-            get
-            {
-                if (CurrentDepth == ResPathDepth) return null;
-                return ResPath[CurrentDepth++];
-            }
-        }
-
-        public bool IsPathTraversed
-        {
-            get { return (CurrentDepth == ResPathDepth); }
         }
     }
 }
