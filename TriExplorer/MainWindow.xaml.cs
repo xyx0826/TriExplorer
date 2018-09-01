@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
@@ -14,14 +15,23 @@ namespace TriExplorer
     /// </summary>
     public partial class MainWindow : Window
     {
+        public string WindowTitle => GetType().Namespace;
+
         public MainWindow()
         {
             InitializeComponent();
             InitializeSettings();
         }
 
-        public string WindowTitle => GetType().Namespace;
-
+        /// <summary>
+        /// Initialization here: read settings etc
+        /// </summary>
+        private void InitializeSettings()
+        {
+            // Attempt to validate/read settings
+            SharedCacheReader.ValidateSCPath();
+        }
+        
         /// <summary>
         /// Fire on window loaded: call to prepare file tree
         /// </summary>
@@ -37,9 +47,24 @@ namespace TriExplorer
             await PrepareSharedCache();
         }
 
+        /// <summary>
+        /// Force a reload of shared cache with custom path.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ReloadSharedCache(object sender, RoutedEventArgs e)
         {
             await PrepareSharedCache(true);
+        }
+
+        /// <summary>
+        /// Fire on app close: save settings
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Settings.Default.Save();
         }
 
         /// <summary>
@@ -77,6 +102,7 @@ namespace TriExplorer
             StatusBar.DataContext = UIStrings.GetInstance();
             InfoStackPanel.DataContext = UIStrings.GetInstance();
 
+            _currentNode = null;
             // Read raw from resfileindex.txt
             // Disable path selector until loading is complete
             UIStrings.GetInstance().IsPathBtnEnabled = false;
@@ -99,61 +125,53 @@ namespace TriExplorer
             };
             UIStrings.GetInstance().IsPathBtnEnabled = true;
         }
-        
-        /// <summary>
-        /// Fire on app close: save settings
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            Settings.Default.Save();
-        }
-        
-        /// <summary>
-        /// Initialization here: read settings etc
-        /// </summary>
-        private void InitializeSettings()
-        {
-            // Attempt to validate/read settings
-            SharedCacheReader.ValidateSCPath();
-        }
+
+        SharedCacheNode _currentNode;
 
         /// <summary>
-        /// Fire on TreeView node select: get info & update UI
+        /// Fire on TreeView node select: get info & update UI 
+        /// Also saves the selected node to variable
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var selectedNode = e.NewValue as SharedCacheNode;
-            Debug.WriteLine($"Selecting {selectedNode.DisplayName}");
+            _currentNode = e.NewValue as SharedCacheNode;
+            Debug.WriteLine($"Selecting {_currentNode.DisplayName}");
 
-            if (selectedNode.GetType() == typeof(SharedCacheDirectory))
-                UIStrings.GetInstance().CurrentNodeType = "Shared Resource Path";
-
-            // Only display file info for files, not directory nodes (duh)
-            if (selectedNode.GetType() == typeof(SharedCacheFile))
+            if (_currentNode.GetType() == typeof(SharedCacheDirectory))
             {
+                UIStrings.GetInstance().IsCurrentNodeFile = false;
+                UIStrings.GetInstance().CurrentNodeType = "Shared Resource Path";
+            }
+
+            // Assign file node infos for display
+            if (_currentNode.GetType() == typeof(SharedCacheFile))
+            {
+                var fileNode = _currentNode as SharedCacheFile;
+                UIStrings.GetInstance().IsCurrentNodeFile = true;
                 // Use predefined description, or system description if file is unknown
-                var systemDesc = FileHelper.GetFileTypeDescription((selectedNode as SharedCacheFile).DisplayName);
-                var builtInDesc = (selectedNode as SharedCacheFile).TypeDesc;
+                var systemDesc = FileHelper.GetFileTypeDescription(fileNode.DisplayName);
+                var builtInDesc = fileNode.TypeDesc;
                 UIStrings.GetInstance().CurrentNodeType = (String.IsNullOrEmpty(builtInDesc) ? systemDesc : builtInDesc);
 
                 // Size and compressed size
-                UIStrings.GetInstance().CurrentFileSize = (selectedNode as SharedCacheFile).Info.RawSize.ToString();
-                UIStrings.GetInstance().CurrentFileCompressedSize = (selectedNode as SharedCacheFile).Info.CompressedSize.ToString();
+                UIStrings.GetInstance().CurrentFileSize = fileNode.Info.RawSize.ToString();
+                UIStrings.GetInstance().CurrentFileCompressedSize = fileNode.Info.CompressedSize.ToString();
 
                 // Disk path and MD5 hash
-                UIStrings.GetInstance().CurrentFileName = (selectedNode as SharedCacheFile).Info.FilePath;
-                UIStrings.GetInstance().CurrentFileHash = (selectedNode as SharedCacheFile).Info.Md5;
+                UIStrings.GetInstance().CurrentFileName = fileNode.Info.FilePath;
+                UIStrings.GetInstance().CurrentFileHash = fileNode.Info.Md5;
             }
-            else
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentNode != null && _currentNode.GetType() == typeof(SharedCacheFile))
             {
-                UIStrings.GetInstance().CurrentFileSize = "";
-                UIStrings.GetInstance().CurrentFileCompressedSize = "";
-                UIStrings.GetInstance().CurrentFileName = "";
-                UIStrings.GetInstance().CurrentFileHash = "";
+                var filePath = Path.Combine(Settings.Default.SCPath, "ResFiles",
+                    (_currentNode as SharedCacheFile).Info.FilePath).Replace('/', '\\');
+                Process.Start("explorer.exe", "/Select, " + filePath);
             }
         }
     }

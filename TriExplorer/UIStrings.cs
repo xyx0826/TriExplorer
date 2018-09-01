@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Windows;
 using TriExplorer.Utils;
 
 namespace TriExplorer
@@ -11,6 +12,7 @@ namespace TriExplorer
 
         private UIStrings()
         {
+            IsCurrentNodeFile = false;
             _loadingText = "Initializing...";
             _loadingProgMax = 1;
             _isPathBtnEnabled = false;
@@ -98,6 +100,8 @@ namespace TriExplorer
         int _currentFileCompressedSize;
         string _currentFileHash;
 
+        public bool IsCurrentNodeFile;
+
         /// <summary>
         /// Type of current TreeView node: 
         /// can be a directory or a specific file type.
@@ -119,10 +123,14 @@ namespace TriExplorer
         public string CurrentFileName
         {
             get
-            { 
-                // A single underscore won't be displayed; "access key" feature of Label
-                if (_currentFileName != null) return _currentFileName.Replace("_", "__");
-                else return _currentFileName;
+            {
+                if (IsCurrentNodeFile)
+                {
+                    // A single underscore won't be displayed; "access key" feature of Label
+                    if (_currentFileName != null) return _currentFileName.Replace("_", "__");
+                    else return _currentFileName;
+                }
+                else return "";
             }
             set
             {
@@ -137,7 +145,7 @@ namespace TriExplorer
         /// </summary>
         public string CurrentFileSize
         {
-            get { return FileHelper.ToFileSize(_currentFileSize); }
+            get { return (IsCurrentNodeFile ? FileHelper.ToFileSize(_currentFileSize) : ""); }
             set
             {
                 Int32.TryParse(value, out _currentFileSize);
@@ -151,7 +159,7 @@ namespace TriExplorer
         /// </summary>
         public string CurrentFileCompressedSize
         {
-            get { return FileHelper.ToFileSize(_currentFileCompressedSize); }
+            get { return (IsCurrentNodeFile ? FileHelper.ToFileSize(_currentFileCompressedSize) : ""); }
             set
             {
                 Int32.TryParse(value, out _currentFileCompressedSize);
@@ -165,7 +173,7 @@ namespace TriExplorer
         /// </summary>
         public string CurrentFileHash
         {
-            get { return _currentFileHash; }
+            get { return (IsCurrentNodeFile ? _currentFileHash : ""); }
             set
             {
                 _currentFileHash = value;
@@ -173,6 +181,10 @@ namespace TriExplorer
             }
         }
 
+        public Visibility PathButtonVisibility
+        {
+            get { return (IsCurrentNodeFile ? Visibility.Visible : Visibility.Collapsed); }
+        }
         #endregion
     }
 }

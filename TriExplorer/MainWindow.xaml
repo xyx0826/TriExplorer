@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TriExplorer"
         mc:Ignorable="d"
-        Title="{Binding WindowTitle}" Height="450" Width="800"
+        Title="{Binding WindowTitle}" Height="500" Width="800"
         Loaded="Window_Loaded"
         Closed="Window_Closed">
     <DockPanel VerticalAlignment="Stretch" LastChildFill="True">
@@ -28,8 +28,12 @@
             </Grid>
         </StatusBar>
         <!-- Main DockPanel -->
-        <DockPanel HorizontalAlignment="Stretch">
-            <TreeView x:Name="TreeView" Width="300" 
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="5*"/>
+            </Grid.ColumnDefinitions>
+            <TreeView x:Name="TreeView" Grid.Column="0"
                       ItemsSource="{Binding SharedCacheTree}" 
                       SelectedItemChanged="TreeView_SelectedItemChanged">
                 <TreeView.ItemTemplate>
@@ -41,12 +45,13 @@
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
-            <StackPanel x:Name="InfoStackPanel" Orientation="Vertical">
+            <StackPanel x:Name="InfoStackPanel" Grid.Column="1" Margin="8" Orientation="Vertical">
                 <Expander Header="{Binding CurrentNodeType}" IsExpanded="True" HorizontalAlignment="Stretch">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
@@ -63,6 +68,8 @@
                         <Label Grid.Row="2" Grid.Column="1" Content="{Binding CurrentFileCompressedSize}"/>
                         <Label Grid.Row="3" Grid.Column="0" Content="File name on disk: "/>
                         <Label Grid.Row="3" Grid.Column="1" FontFamily="Consolas" Content="{Binding CurrentFileName}"/>
+                        <Button Grid.Row="3" Grid.Column="2" Visibility="{Binding PathButtonVisibility}" Style="{StaticResource OpenFileIcon}" 
+                                ToolTip="Find this file in cache folder" Click="Button_Click"/>
                         <Label Grid.Row="4" Grid.Column="0" Content="File hash: "/>
                         <Label Grid.Row="4" Grid.Column="1" FontFamily="Consolas" Content="{Binding CurrentFileHash}"/>
                     </Grid>
@@ -71,6 +78,6 @@
                 </DockPanel>
             </StackPanel>
             <!-- TODO -->
-        </DockPanel>
+        </Grid>
     </DockPanel>
 </Window>
