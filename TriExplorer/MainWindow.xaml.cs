@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Forms;
 using TriExplorer.Properties;
 using TriExplorer.Types;
+using TriExplorer.Utils;
 
 namespace TriExplorer
 {
@@ -134,14 +135,25 @@ namespace TriExplorer
             // Only display file info for files, not directory nodes (duh)
             if (selectedNode.GetType() == typeof(SharedCacheFile))
             {
-                UIStrings.GetInstance().CurrentNodeType = (selectedNode as SharedCacheFile).TypeDesc;
+                // Use predefined description, or system description if file is unknown
+                var systemDesc = FileHelper.GetFileTypeDescription((selectedNode as SharedCacheFile).DisplayName);
+                var builtInDesc = (selectedNode as SharedCacheFile).TypeDesc;
+                UIStrings.GetInstance().CurrentNodeType = (String.IsNullOrEmpty(builtInDesc) ? systemDesc : builtInDesc);
+
+                // Size and compressed size
                 UIStrings.GetInstance().CurrentFileSize = (selectedNode as SharedCacheFile).Info.RawSize.ToString();
-                UIStrings.GetInstance().CurrentFileName = (selectedNode as SharedCacheFile).Info.ResName;
+                UIStrings.GetInstance().CurrentFileCompressedSize = (selectedNode as SharedCacheFile).Info.CompressedSize.ToString();
+
+                // Disk path and MD5 hash
+                UIStrings.GetInstance().CurrentFileName = (selectedNode as SharedCacheFile).Info.FilePath;
+                UIStrings.GetInstance().CurrentFileHash = (selectedNode as SharedCacheFile).Info.Md5;
             }
             else
             {
                 UIStrings.GetInstance().CurrentFileSize = "";
+                UIStrings.GetInstance().CurrentFileCompressedSize = "";
                 UIStrings.GetInstance().CurrentFileName = "";
+                UIStrings.GetInstance().CurrentFileHash = "";
             }
         }
     }

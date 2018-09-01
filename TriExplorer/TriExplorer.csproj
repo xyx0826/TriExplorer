@@ -60,6 +60,7 @@
     <Compile Include="SharedCacheParser.cs" />
     <Compile Include="SharedCacheReader.cs" />
     <Compile Include="UIStrings.cs" />
+    <Compile Include="Utils\FileHelper.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

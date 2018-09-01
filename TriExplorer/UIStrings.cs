@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using TriExplorer.Utils;
 
 namespace TriExplorer
 {
@@ -92,8 +93,10 @@ namespace TriExplorer
 
         #region Details StackPanel
         string _currentNodeType;
-        int _currentFileSize;
         string _currentFileName;
+        int _currentFileSize;
+        int _currentFileCompressedSize;
+        string _currentFileHash;
 
         /// <summary>
         /// Type of current TreeView node: 
@@ -111,11 +114,16 @@ namespace TriExplorer
 
         /// <summary>
         /// Name of current TreeView node:
-        /// only applicablke to file nodes.
+        /// only applicable to file nodes.
         /// </summary>
         public string CurrentFileName
         {
-            get { return _currentFileName; }
+            get
+            { 
+                // A single underscore won't be displayed; "access key" feature of Label
+                if (_currentFileName != null) return _currentFileName.Replace("_", "__");
+                else return _currentFileName;
+            }
             set
             {
                 _currentFileName = value;
@@ -129,29 +137,42 @@ namespace TriExplorer
         /// </summary>
         public string CurrentFileSize
         {
-            get
-            {
-                if (_currentFileSize == 0) return "N/A";    // not a file
-                else if (_currentFileSize < 1024)    // less than 1kb
-                {
-                    return $"{_currentFileSize} B";
-                }
-                else if (_currentFileSize < 1024 * 1024)    // less than 1mb
-                {
-                    return $"{_currentFileSize / 1024} KB";
-                }
-                else if (_currentFileSize < 1024 * 1024 * 1024) // less than 1gb
-                {
-                    return $"{_currentFileSize / 1024 / 1024} MB";
-                }
-                else return _currentFileSize.ToString();
-            }
+            get { return FileHelper.ToFileSize(_currentFileSize); }
             set
             {
                 Int32.TryParse(value, out _currentFileSize);
                 OnPropertyChanged();
             }
         }
+
+        /// <summary>
+        /// Compressed size of current TreeView node: 
+        /// only applicable to file nodes.
+        /// </summary>
+        public string CurrentFileCompressedSize
+        {
+            get { return FileHelper.ToFileSize(_currentFileCompressedSize); }
+            set
+            {
+                Int32.TryParse(value, out _currentFileCompressedSize);
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Hash of current TreeView node: 
+        /// only applicable to file nodes.
+        /// </summary>
+        public string CurrentFileHash
+        {
+            get { return _currentFileHash; }
+            set
+            {
+                _currentFileHash = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
     }
 }

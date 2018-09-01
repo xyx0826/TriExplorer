@@ -9,20 +9,34 @@ namespace TriExplorer.Types
     public class SharedCacheEntry
     {
         #region Properties
-        // File (actual) path
+        /// <summary>
+        /// Actual file path (on disk).
+        /// </summary>
         public string FilePath;
-        // File expected raw size
+        /// <summary>
+        /// Expected file raw size.
+        /// </summary>
         public int RawSize;
-        // File expected compressed size (unspecified == 0)
+        /// <summary>
+        /// Expected file compressed size. 0 if unspecified.
+        /// </summary>
         public int CompressedSize;
-        // File expected checksum
+        /// <summary>
+        /// Expected file checksum.
+        /// </summary>
         public string Md5;
 
-        // Resource (pretty) path, sliced up
+        /// <summary>
+        /// File resource path, sliced up.
+        /// </summary>
         private string[] ResPath;
-        // Resource (pretty) path depth
+        /// <summary>
+        /// File resource path depth.
+        /// </summary>
         private int ResPathDepth;
-        // (For parsing) current traversed depth
+        /// <summary>
+        /// (For parsing) current traversed depth.
+        /// </summary>
         private int CurrentDepth;
         #endregion
 

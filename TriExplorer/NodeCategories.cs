@@ -27,6 +27,7 @@ namespace TriExplorer
 
         private NodeCategories()
         {
+            // Icon mappings: unknown formats use a default icon
             _iconMappings = new Dictionary<string, Style>()
             {
                 {"gr2", Application.Current.FindResource("ModelIcon") as Style },
@@ -42,24 +43,21 @@ namespace TriExplorer
                 {"yaml", Application.Current.FindResource("YamlIcon") as Style },
                 {"txt", Application.Current.FindResource("YamlIcon") as Style },
                 {"FOLDER", Application.Current.FindResource("FolderIcon") as Style },
-                {"DEFAULT", Application.Current.FindResource("MiscIcon") as Style },
+                {"DEFAULT", Application.Current.FindResource("MiscIcon") as Style }
             };
 
+            // Description mappings: only EVE-specific formats are here. Rest uses system description
             _descMappings = new Dictionary<string, string>()
             {
                 {"gr2", "Granny2 model file" },
-                {"dds", "DDS (DirectDraw Surface) texture file" },
-                {"png", "PNG (Portal Network Graphics) texture/icon file" },
                 {"black", "EVE Online scene file" },
                 {"sm_depth", "EVE Online effect file" },
                 {"sm_hi", "EVE Online effect file" },
                 {"sm_lo", "EVE Online effect file" },
                 {"bnk", "Audiokinetic Wwise sound bank file" },
                 {"wem", "Audiokinetic Wwise audio file" },
-                {"xml", "XML markup file" },
-                {"yaml", "YAML markup file" },
-                {"txt", "Text file" },
-                {"DEFAULT", "(Unknown file format)" },
+                {"static", "EVE Online FSDLite data file" },
+                {"pickle", "Python pickle data file" }
             };
         }
         #endregion
@@ -76,7 +74,7 @@ namespace TriExplorer
         {
             var desc = "";
             var descExists = _descMappings.TryGetValue(fileType, out desc);
-            if (!descExists) desc = _descMappings["DEFAULT"];
+            if (!descExists) desc = "";
             return desc;
         }
     }
