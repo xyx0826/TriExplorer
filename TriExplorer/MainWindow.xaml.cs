@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using TriExplorer.Properties;
+using TriExplorer.SharedCache;
 using TriExplorer.Types;
-using TriExplorer.Utils;
 
 namespace TriExplorer
 {
@@ -134,34 +134,20 @@ namespace TriExplorer
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private async void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             _currentNode = e.NewValue as SharedCacheNode;
             Debug.WriteLine($"Selecting {_currentNode.DisplayName}");
 
             if (_currentNode.GetType() == typeof(SharedCacheDirectory))
             {
-                UIStrings.GetInstance().IsCurrentNodeFile = false;
-                UIStrings.GetInstance().CurrentNodeType = "Shared Resource Path";
+                UIUpdater.UpdateUiForDir(_currentNode as SharedCacheDirectory);
             }
 
             // Assign file node infos for display
             if (_currentNode.GetType() == typeof(SharedCacheFile))
             {
-                var fileNode = _currentNode as SharedCacheFile;
-                UIStrings.GetInstance().IsCurrentNodeFile = true;
-                // Use predefined description, or system description if file is unknown
-                var systemDesc = FileHelper.GetFileTypeDescription(fileNode.DisplayName);
-                var builtInDesc = fileNode.TypeDesc;
-                UIStrings.GetInstance().CurrentNodeType = (String.IsNullOrEmpty(builtInDesc) ? systemDesc : builtInDesc);
-
-                // Size and compressed size
-                UIStrings.GetInstance().CurrentFileSize = fileNode.Info.RawSize.ToString();
-                UIStrings.GetInstance().CurrentFileCompressedSize = fileNode.Info.CompressedSize.ToString();
-
-                // Disk path and MD5 hash
-                UIStrings.GetInstance().CurrentFileName = fileNode.Info.FilePath;
-                UIStrings.GetInstance().CurrentFileHash = fileNode.Info.Md5;
+                await UIUpdater.UpdateUiForFile(_currentNode as SharedCacheFile);
             }
         }
 

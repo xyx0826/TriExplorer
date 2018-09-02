@@ -68,8 +68,7 @@ namespace TriExplorer
 
         public string FindDesc(string fileType)
         {
-            var desc = "";
-            var descExists = _descMappings.TryGetValue(fileType, out desc);
+            var descExists = _descMappings.TryGetValue(fileType, out string desc);
             if (!descExists) desc = "";
             return desc;
         }

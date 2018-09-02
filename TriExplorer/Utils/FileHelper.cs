@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Security.Cryptography;
 using System.Runtime.InteropServices;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace TriExplorer.Utils
 {
     static class FileHelper
     {
+        #region File size prettyprint
         public static string ToFileSize(float size)
         {
             if (size == 0) return "N/A";
@@ -45,7 +49,9 @@ namespace TriExplorer.Utils
                 return value.ToString("0.00");
             }
         }
+        #endregion
 
+        #region File type description from system
         public static string GetFileTypeDescription(string fileNameOrExtension)
         {
             if (IntPtr.Zero != SHGetFileInfo(
@@ -78,5 +84,24 @@ namespace TriExplorer.Utils
         private const uint FILE_ATTRIBUTE_NORMAL = 0x00000080;
         private const uint SHGFI_TYPENAME = 0x000000400;     // get type name
         private const uint SHGFI_USEFILEATTRIBUTES = 0x000000010;     // use passed dwFileAttribute
+        #endregion
+
+        public async static Task<bool> CompareMd5(string filePath, string expected)
+        {
+            if (!File.Exists(filePath)) return false;
+
+            return await Task.Run(() =>
+            {
+                using (var md5 = MD5.Create())
+                {
+                    using (var stream = File.OpenRead(filePath))
+                    {
+                        return expected.ToUpper().Equals(
+                            BitConverter.ToString(md5.ComputeHash(stream))
+                                .Replace("-", ""));
+                    }
+                }
+            });
+        }
     }
 }

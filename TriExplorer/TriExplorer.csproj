@@ -57,9 +57,10 @@
     <Compile Include="NodeCategories.cs" />
     <Compile Include="Types\SharedCacheEntry.cs" />
     <Compile Include="Types\SharedCacheNode.cs" />
-    <Compile Include="SharedCacheParser.cs" />
-    <Compile Include="SharedCacheReader.cs" />
+    <Compile Include="SharedCache\SharedCacheParser.cs" />
+    <Compile Include="SharedCache\SharedCacheReader.cs" />
     <Compile Include="UIStrings.cs" />
+    <Compile Include="UIUpdater.cs" />
     <Compile Include="Utils\FileHelper.cs" />
     <Page Include="Resources\ButtonIcons.xaml">
       <SubType>Designer</SubType>

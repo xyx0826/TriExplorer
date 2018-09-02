@@ -71,7 +71,7 @@
                         <Button Grid.Row="3" Grid.Column="2" Visibility="{Binding PathButtonVisibility}" Style="{StaticResource OpenFileIcon}" 
                                 ToolTip="Find this file in cache folder" Click="Button_Click"/>
                         <Label Grid.Row="4" Grid.Column="0" Content="File hash: "/>
-                        <Label Grid.Row="4" Grid.Column="1" FontFamily="Consolas" Content="{Binding CurrentFileHash}"/>
+                        <Label Grid.Row="4" Grid.Column="1" Foreground="{Binding HashStringColor}" FontFamily="Consolas" Content="{Binding CurrentFileHash}"/>
                     </Grid>
                 </Expander>
                 <DockPanel HorizontalAlignment="Stretch">

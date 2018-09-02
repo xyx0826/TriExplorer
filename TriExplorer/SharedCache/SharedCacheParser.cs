@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TriExplorer.Types;
 
-namespace TriExplorer
+namespace TriExplorer.SharedCache
 {
     class SharedCacheParser
     {

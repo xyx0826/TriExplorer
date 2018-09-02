@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Media;
 using TriExplorer.Utils;
 
 namespace TriExplorer
@@ -102,6 +103,17 @@ namespace TriExplorer
 
         public bool IsCurrentNodeFile;
 
+        bool? _isCurrentFileValid;
+        public bool? IsCurrentFileValid
+        {
+            get { return _isCurrentFileValid; }
+            set
+            {
+                _isCurrentFileValid = value;
+                OnPropertyChanged();
+            }
+        }
+
         /// <summary>
         /// Type of current TreeView node: 
         /// can be a directory or a specific file type.
@@ -184,6 +196,15 @@ namespace TriExplorer
         public Visibility PathButtonVisibility
         {
             get { return (IsCurrentNodeFile ? Visibility.Visible : Visibility.Collapsed); }
+        }
+
+        public Brush HashStringColor
+        {
+            get
+            {
+                if (IsCurrentFileValid == null) return Brushes.Black;
+                else return ((bool) IsCurrentFileValid ? Brushes.Green : Brushes.Red);
+            }
         }
         #endregion
     }

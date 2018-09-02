@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TriExplorer.Types;
 using TriExplorer.Properties;
 
-namespace TriExplorer
+namespace TriExplorer.SharedCache
 {
     class SharedCacheReader
     {
